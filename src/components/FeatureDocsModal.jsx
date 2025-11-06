@@ -41,17 +41,14 @@ export default function FeatureDocsModal({ feature, onClose }) {
   <h2 className="text-[#baff37] font-extrabold text-lg md:text-xl pr-10">
     ⚡ {feature}
   </h2>
-  <button
-    className="absolute right-4 top-3 text-[#baff37] text-5xl font-extrabold 
-               hover:text-[#eaff91] transition-all duration-200 
-               transform hover:scale-125 
-               drop-shadow-[0_0_12px_rgba(186,255,55,0.6)]
-               animate-pulseGlow"
-    onClick={onClose}
-    aria-label="Close"
-  >
-    ×
-  </button>
+ <button
+  className="close-docs-btn"
+  onClick={onClose}
+  aria-label="Close"
+>
+  ×
+</button>
+
 </div>
 
 
