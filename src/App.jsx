@@ -3,19 +3,22 @@ import VersePortal from "./Energy/VersePortal";
 import AdminPanel from "./components/AdminPanel";
 import AdminLogin from "./components/AdminLogin";
 import ProtectedAdminRoute from "./components/routes/ProtectedAdminRoute";
+import FeatureDocsPage from "./components/FeatureDocsPage";
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-
-        {/* Public User Portal */}
+        {/* 🌍 Public User Portal */}
         <Route path="/" element={<VersePortal />} />
 
-        {/* Admin Login Page */}
+        {/* ⚡ Full Feature Documentation Page */}
+        <Route path="/docs" element={<FeatureDocsPage />} />
+
+        {/* 🔐 Admin Login Page */}
         <Route path="/admin-login" element={<AdminLogin />} />
 
-        {/* Protected Admin Panel */}
+        {/* 🧠 Protected Admin Panel */}
         <Route
           path="/admin"
           element={
@@ -25,7 +28,7 @@ export default function App() {
           }
         />
 
-        {/* Unknown Route */}
+        {/* 🚫 Unknown Routes Redirect */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>

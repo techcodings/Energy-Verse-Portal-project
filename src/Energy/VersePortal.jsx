@@ -12,7 +12,7 @@ import FeatureDocsModal from "../components/FeatureDocsModal"; // ✅ Added impo
 import { auth, db } from '../config/firebase';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc } from "firebase/firestore";
-
+import { Link } from "react-router-dom";
 
 
 
@@ -157,7 +157,17 @@ const Header = ({ mobileMenuOpen, setMobileMenuOpen, setShowSearch, onUserButton
             <a href="#features">Features</a>
             <a href="#capabilities">Capabilities</a>
             <a href="#integration">Integration</a>
-            <a href="#docs">Documentation</a>
+<Link
+  to="/docs"
+  className="px-4 py-2 rounded-md font-semibold text-[#caff37] 
+             border border-[#baff37]/40 hover:border-[#eaff91]/70
+             hover:text-[#eaff91] hover:shadow-[0_0_12px_rgba(186,255,55,0.6)]
+             bg-transparent transition-all duration-300 ease-in-out
+             hover:bg-[#baff37]/10"
+>
+   Documentation
+</Link>
+
             <button className="icon-btn" onClick={() => setShowSearch(true)}>
               <Search size={20} />
             </button>
