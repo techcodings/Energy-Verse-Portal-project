@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+
 import { 
   Menu, X, ChevronRight, Sun, Wind, Battery, Zap, TrendingUp, Globe, 
   Activity, AlertTriangle, BarChart3, Database, Leaf, Users, Settings,
@@ -67,7 +68,7 @@ const allFeatures = [
     { id: 14, title: 'EV Driver Behavior & Incentive Analytics', icon: Users, category: 'EV & Grid Management', color: 'orange-red', desc: 'Usage patterns and incentive strategy recommendations', inputs: ['EV Mobility Datasets', 'Charging Station Data', 'Road Networks', 'Weather Effects'], outputs: ['Charging Patterns', 'Peak Usage Analysis', 'Incentive Strategies', 'Demand Shifts'], ml: ['Behavior Analysis', 'Recommendation Systems'], datasets: ['Open Charge Map', 'OSM', 'Mobility Data'], integration: 'Backend + User Input',demoUrl:"https://ev-behaviour-dashboard.netlify.app/", tags: ['EV', 'Behavior', 'Analytics', 'Incentives'] },
     { id: 15, title: 'DER Integration & Microgrid Simulation', icon: Database, category: 'Energy Forecasting & Optimization', color: 'teal-green', desc: 'Distributed energy resource management and optimization', inputs: ['Rooftop PV Generation', 'Home Battery Logs', 'EV Fleet Data', 'Microgrid Topology'], outputs: ['DER Contribution', 'Load vs Generation', 'Energy Balance', 'Dispatch Schedule'], ml: ['Microgrid Simulation', 'Optimization'], datasets: ['PVGIS', 'Battery Logs', 'EV Data'], integration: 'Backend + User Input',demoUrl:"https://der-microgrid-dashboard.netlify.app/", tags: ['DER', 'Microgrid', 'Simulation', 'Integration'] },
     { id: 16, title: 'Renewable Energy CO₂ Impact Dashboard', icon: Leaf, category: 'Analytics & Intelligence', color: 'green-dark', desc: 'Emissions tracking and environmental impact analysis', inputs: ['Generation Data', 'Grid Emission Factors', 'Weather Data', 'Regional Analysis'], outputs: ['CO₂ Savings', 'Renewable Share', 'Emission Reduction', 'Policy Impact'], ml: ['Impact Analysis', 'Scenario Modeling'], datasets: ['OpenEI', 'IRENA', 'Open-Meteo'], integration: 'Backend + User Input',demoUrl:"https://renewable-energy-co2-dashboard.netlify.app/", tags: ['CO₂', 'Environment', 'Impact', 'Dashboard'] },
-    { id: 17, title: 'Real-Time Fault / Anomaly Explanation', icon: Cpu, category: 'Risk Management', color: 'rose-pink', desc: 'Automated fault detection with cause analysis', inputs: ['Sensor Logs', 'Satellite Imagery', 'Weather Data', 'Grid Data'], outputs: ['Anomaly Location', 'Severity Ranking', 'Cause Analysis', 'Mitigation Actions'], ml: ['Explainable AI', 'Fault Detection'], datasets: ['IoT Sensors', 'Sentinel-2', 'OpenEI'], integration: 'Backend + User Input',demoUrl:"", tags: ['Fault', 'Anomaly', 'Explanation', 'Real-time'] }
+    { id: 17, title: 'Real-Time Fault / Anomaly Explanation', icon: Cpu, category: 'Risk Management', color: 'rose-pink', desc: 'Automated fault detection with cause analysis', inputs: ['Sensor Logs', 'Satellite Imagery', 'Weather Data', 'Grid Data'], outputs: ['Anomaly Location', 'Severity Ranking', 'Cause Analysis', 'Mitigation Actions'], ml: ['Explainable AI', 'Fault Detection'], datasets: ['IoT Sensors', 'Sentinel-2', 'OpenEI'], integration: 'Backend + User Input',demoUrl:"https://realtime-fault-anomaly.netlify.app/", tags: ['Fault', 'Anomaly', 'Explanation', 'Real-time'] }
 ];
 
 // Group features by category
@@ -451,11 +452,19 @@ const FeatureModal = ({ feature, isOpen, onClose }) => {
 
           <div className="modal-actions">
             <button
-              className="btn-primary"
-              onClick={() => window.open(feature.demoUrl, "_blank")}
-            >
-              <Play size={18} /> Try Demo
-            </button>
+  className="btn-primary"
+  onClick={() => {
+    // ✅ Preserve feature reference for back navigation
+    const base = window.location.origin;
+    const featureParam = `feature=${encodeURIComponent(feature.id)}`;
+    const portalUrl = `${base}/?${featureParam}`;
+    const finalUrl = `${feature.demoUrl}?return=${encodeURIComponent(portalUrl)}`;
+    window.open(finalUrl, "_blank"); // open in new tab
+  }}
+>
+  <Play size={18} /> Try Demo
+</button>
+
 
             <button onClick={handleViewDocs} className="view-docs-btn">
               📘 View Documentation
@@ -472,11 +481,12 @@ const FeatureCard = ({ feature, index, onClick }) => {
   const Icon = feature.icon;
   
   return (
-    <div 
-      className="feature-card"
-      style={{ animationDelay: `${index * 0.05}s` }}
-      onClick={() => onClick(feature)}
-    >
+    <div
+  className="feature-card"
+  data-feature-id={feature.id}
+  onClick={() => onClick(feature)}
+>
+
       <div className={`card-overlay ${feature.color}`}></div>
       
       <div className="card-content">
@@ -738,6 +748,7 @@ export default function VersePortal() {
   const [user, setUser] = useState(null);
   const [showUserMenu, setShowUserMenu] = useState(false); // New state for dropdown
 const navigate = useNavigate();
+const location = useLocation();
 
   // 1. Firebase Auth Listener for persistence
   useEffect(() => {
@@ -746,7 +757,34 @@ const navigate = useNavigate();
     });
     return unsubscribe;
   }, []);
-  
+  // ✅ Scroll to a specific feature when coming back from demo
+// ✅ Ignore ?feature parameter and always start at top
+// ✅ Scroll to feature when ?feature=id is in URL
+useEffect(() => {
+  const params = new URLSearchParams(location.search);
+  const featureId = params.get("feature");
+
+  // Run only if a feature ID is in the URL and user is logged in
+  if (user && featureId) {
+    const tryScroll = () => {
+      const card = document.querySelector(`[data-feature-id="${featureId}"]`);
+      if (card) {
+        card.scrollIntoView({ behavior: "smooth", block: "center" });
+        card.classList.add("highlight-card");
+        setTimeout(() => card.classList.remove("highlight-card"), 2000);
+        return true;
+      }
+      return false;
+    };
+
+    // Try immediately, then again after a short delay (for rendering)
+    if (!tryScroll()) {
+      setTimeout(tryScroll, 1000);
+    }
+  }
+}, [location.search, user]);
+
+
   // 2. Main handler for 'Get Started' / 'Hello, User' button
   const handleUserButtonClick = async () => {
    if (user) {
