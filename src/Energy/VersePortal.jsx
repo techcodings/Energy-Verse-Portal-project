@@ -31,7 +31,7 @@ const allFeatures = [
         ml: ['ViT', 'Temporal Fusion Transformer', 'Anomaly Detection'],
         datasets: ['Sentinel-2', 'PVGIS', 'Open-Meteo', 'IoT Sensors'],
         integration: 'Backend + User Input',
-         demoUrl:"https://solar-heath-efficiency-monitoring.netlify.app/",
+         demoUrl:"https://glittery-cactus-21e92d.netlify.app/",
         tags: ['Monitoring', 'Solar', 'AI', 'Real-time']
     },
    {
