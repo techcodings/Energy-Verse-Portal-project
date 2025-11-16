@@ -459,11 +459,15 @@ const FeatureModal = ({ feature, isOpen, onClose }) => {
     const featureParam = `feature=${encodeURIComponent(feature.id)}`;
     const portalUrl = `${base}/?${featureParam}`;
     const finalUrl = `${feature.demoUrl}?return=${encodeURIComponent(portalUrl)}`;
-    window.open(finalUrl, "_blank"); // open in new tab
+
+    // ❌ window.open(finalUrl, "_blank"); // old (new tab)
+    // ✅ navigate in same tab
+    window.location.href = finalUrl;
   }}
 >
   <Play size={18} /> Try Demo
 </button>
+
 
 
             <button onClick={handleViewDocs} className="view-docs-btn">
