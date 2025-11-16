@@ -118,7 +118,7 @@ const AboutSection = () => {
   linkedin: "https://www.linkedin.com/in/goutham-lm/",
   website: "https://techcodings.github.io/gouthamlm",
   tags: ["Full-Stack", "AI / ML", "EnergyTech", "Product Builder"],
-  initials: "GL"
+  initials: "LMG"
 }
 
   ];
