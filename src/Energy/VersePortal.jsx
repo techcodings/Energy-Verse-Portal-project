@@ -5,8 +5,10 @@ import {
   Menu, X, ChevronRight, Sun, Wind, Battery, Zap, TrendingUp, Globe, 
   Activity, AlertTriangle, BarChart3, Database, Leaf, Users, Settings,
   Search, Filter, ArrowRight, Play, Bell, Code, MapPin, LineChart, Shield, 
-  Cpu, Cloud, Box, GitBranch, LogOut, User, LayoutDashboard, MessageSquare, Download
+  Cpu, Cloud, Box, GitBranch, LogOut, User, LayoutDashboard, MessageSquare, Download,
+  Github, Linkedin
 } from 'lucide-react';
+
 import './VersePortal.css';
 import Auth from '../components/Auth';
 import FeatureDocsModal from "../components/FeatureDocsModal"; // ✅ Added import
@@ -57,7 +59,7 @@ const allFeatures = [
     { id: 3, title: 'EV Charging Demand Prediction', icon: Battery, category: 'EV & Grid Management', color: 'green-emerald', desc: 'Regional demand heatmaps with peak load predictions', inputs: ['EV Registration Data', 'Open Charge Map', 'OSM Road Network', 'Historical Usage'], outputs: ['Demand Heatmap', 'Peak Load Predictions', 'Scenario Simulations', 'TTS Alerts'], ml: ['LSTM', 'Graph Transformer', 'Multimodal Fusion'], datasets: ['Open Charge Map', 'OpenStreetMap', 'Open-Meteo'], integration: 'Backend + User Input',demoUrl:"https://ev-charging-demand-prediction.netlify.app/", tags: ['EV', 'Prediction', 'Grid', 'Demand'] },
     { id: 4, title: 'Grid & Microgrid Optimization Advisor', icon: Zap, category: 'Energy Forecasting & Optimization', color: 'emerald-teal', desc: 'Load balancing and battery storage scheduling', inputs: ['Real-time Solar/Wind Generation', 'EV Demand', 'Grid Topology', 'Energy Pricing'], outputs: ['Load Balancing Charts', 'Battery Schedule', 'Grid Stress Metrics', 'Scenario Simulations'], ml: ['Reinforcement Learning', 'Multimodal Transformer'], datasets: ['OPSD', 'ENTSO-E', 'Electricity Maps'], integration: 'Backend + User Input',demoUrl: "https://grid-micorgrid-optimization.netlify.app/", tags: ['Grid', 'Optimization', 'Battery', 'AI'] },
     { id: 5, title: 'Energy Market & Policy Impact Simulator', icon: TrendingUp, category: 'Energy Forecasting & Optimization', color: 'indigo-purple', desc: 'Policy scenarios and supply/demand projections', inputs: ['Historical Market Data', 'Policy Reports', 'Satellite Imagery', 'ERA5 Weather'], outputs: ['Policy Impact Maps', 'Pricing Projections', 'Scenario Dashboards', 'Text Summaries'], ml: ['RAG', 'LLM', 'Temporal Transformer'], datasets: ['IRENA', 'OpenEI', 'World Bank', 'IEA'], integration: 'Backend + User Input',demoUrl:"https://energy-markets-simulator.netlify.app/", tags: ['Market', 'Policy', 'Economics', 'Simulation'] },
-    { id: 6, title: 'Climate & Renewable Anomaly Detector', icon: AlertTriangle, category: 'Solar & Renewable Monitoring', color: 'red-pink', desc: 'Abnormal generation detection with severity ranking', inputs: ['Real-time Weather', 'Satellite Imagery', 'Grid Output Data', 'Climate Event Streams'], outputs: ['Anomaly Heatmaps', 'Temporal Plots', 'Severity Rankings', 'Automated Alerts'], ml: ['Temporal GNN', 'Anomaly Detection Transformer'], datasets: ['Sentinel-2', 'ERA5', 'NASA FIRMS', 'NOAA'], integration: 'Backend',demoUrl:"https://climate-renewable-detect.netlify.app/", tags: ['Anomaly', 'Climate', 'Detection', 'Alerts'] },
+    { id: 6, title: 'Climate & Renewable Anomaly Detector', icon: AlertTriangle, category: 'Solar & Renewable Monitoring', color: 'red-pink', desc: 'Abnormal generation detection with severity ranking', inputs: ['Real-time Weather', 'Satellite Imagery', 'Grid Output Data', 'Climate Event Streams'], outputs: ['Anomaly Heatmaps', 'Temporal Plots', 'Severity Rankings', 'Automated Alerts'], ml: ['Temporal GNN', 'Anomaly Detection Transformer'], datasets: ['Sentinel-2', 'ERA5', 'NASA FIRMS', 'NOAA'], integration: 'Backend',demoUrl:"https://bucolic-narwhal-ef339c.netlify.app/", tags: ['Anomaly', 'Climate', 'Detection', 'Alerts'] },
     { id: 7, title: 'Knowledge Graph of Energy Events', icon: GitBranch, category: 'Analytics & Intelligence', color: 'violet-purple', desc: 'Interactive event networks with timeline analysis', inputs: ['Research Papers', 'Grid Events', 'Policy Information', 'Government APIs'], outputs: ['Interactive Graph', 'Event Timelines', 'Node Summaries', 'Network Metrics'], ml: ['RAG', 'Graph Embedding', 'LLM'], datasets: ['arXiv', 'Government APIs', 'Wikidata'], integration: 'Backend + User Upload',demoUrl:"https://energy-graph.netlify.app/", tags: ['Knowledge Graph', 'Events', 'Research', 'AI'] },
     { id: 8, title: 'Multilingual Energy Assistant', icon: MessageSquare, category: 'Analytics & Intelligence', color: 'pink-rose', desc: 'English/Bangla AI assistant with visual analytics', inputs: ['Text Queries (English/Bangla)', 'Satellite Images', 'Grid Maps', 'OpenEI/IRENA Data'], outputs: ['Text Answers', 'Annotated Maps', 'Interactive Charts', 'TTS Audio'], ml: ['LLM', 'Vision-Language Model', 'LangChain Agents'], datasets: ['OpenEI', 'IRENA', 'BanglaBERT'], integration: 'Backend + User Input',demoUrl:"https://multilingual-energy-chatbot.netlify.app/", tags: ['AI Assistant', 'Multilingual', 'NLP', 'Interactive'] },
     { id: 9, title: 'EV Fleet & Charging Station Optimization', icon: Activity, category: 'EV & Grid Management', color: 'blue-indigo', desc: 'Optimal routing and charging schedules for fleets', inputs: ['EV Fleet Data', 'Open Charge Map', 'OSM Networks', 'Real-time Generation'], outputs: ['Routing Maps', 'Fleet Utilization', 'Schedule Tables', 'Cost Predictions'], ml: ['Reinforcement Learning', 'Temporal GNN'], datasets: ['Open Charge Map', 'GTFS', 'HERE Routing'], integration: 'Backend + User Upload',demoUrl:"https://ev-fleets-charging-stations.netlify.app/", tags: ['EV', 'Fleet', 'Routing', 'Optimization'] },
@@ -79,7 +81,126 @@ const featureCategories = allFeatures.reduce((acc, feature) => {
   acc[feature.category].push(feature);
   return acc;
 }, {});
+const AboutSection = () => {
+  const people = [
+    {
+      id: 1,
+      name: "Ishaa",
+      role: "Collaborator Slot",
+      location: "Your Team",
+      bio: "Add the next teammate’s details here – update the JSON in AboutSection to show their profile.",
+       github: "https://github.com/techcodings",
+      linkedin: "https://www.linkedin.com/in/gouthamlm",
+      website: "https://techcodings.github.io/gouthamlm",
+      tags: ["Full-Stack", "ML / AI", "EnergyTech", "Product Builder"],
+      initials: "+"
+    },
+    {
+  id: 2,
+  name: "Dinesh",
+  role: "Co-builder · Full-Stack & AI Engineer",
+  location: "India",
+  bio: "Architects feature modules, backend APIs, and performance optimisations for the EnergyVerse stack, bridging data, ML, and real-world energy workflows.",
+  github: "https://github.com/Twist-Turn",
+  linkedin: "https://www.linkedin.com/in/dinesh-kumar-5a1a0b257/",
+  website: "https://dinesh-s-portfolio.vercel.app/",
+  tags: ["Full-Stack", "ML / AI", "EnergyTech", "Product Builder"],
+  initials: "D"
+}
+,
+    {
+  id: 3,
+  name: "Goutham L M",
+  role: "Co-builder · Full-Stack & AI Engineer",
+  location: "India",
+  bio: "Leads the core architecture, ML pipelines, and UI/UX for EnergyVerse , turning solar, EV, and grid data into intuitive, production-ready intelligence.",
+  github: "https://github.com/techcodings",
+  linkedin: "https://www.linkedin.com/in/goutham-lm/",
+  website: "https://techcodings.github.io/gouthamlm",
+  tags: ["Full-Stack", "AI / ML", "EnergyTech", "Product Builder"],
+  initials: "GL"
+}
 
+  ];
+
+  return (
+    <section id="about" className="about-section">
+      <div className="about-container">
+        <div className="about-header">
+          <div className="section-badge">
+            <Users size={16} />
+            <span>People behind EnergyVerse</span>
+          </div>
+          <h2>Builders & Contributors</h2>
+          <p>
+            EnergyVerse 2.0 is crafted by a small, focused team of AI, data and full-stack
+            engineers who care about clean energy, developer experience and real-world impact.
+          </p>
+        </div>
+
+        <div className="about-grid">
+          {people.map((person) => (
+            <div key={person.id} className="about-card">
+              <div className="about-card-header">
+                <div className="about-avatar">
+                  <span>{person.initials}</span>
+                </div>
+                <div>
+                  <h3>{person.name}</h3>
+                  <p className="about-role">{person.role}</p>
+                  <p className="about-location">{person.location}</p>
+                </div>
+              </div>
+
+              <p className="about-bio">{person.bio}</p>
+
+              <div className="about-tags">
+                {person.tags.map((tag) => (
+                  <span key={tag} className="about-tag">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <div className="about-links">
+                {person.github && person.github !== "#" && (
+                  <a
+                    href={person.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Github size={16} />
+                    <span>GitHub</span>
+                  </a>
+                )}
+                {person.linkedin && person.linkedin !== "#" && (
+                  <a
+                    href={person.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Linkedin size={16} />
+                    <span>LinkedIn</span>
+                  </a>
+                )}
+                {person.website && person.website !== "#" && (
+                  <a
+                    href={person.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Globe size={16} />
+                    <span>Portfolio</span>
+                  </a>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
 // --- New User Menu Component ---
 const UserMenu = ({ user, onLogout, onClose }) => {
   return (
@@ -547,10 +668,7 @@ const FeaturesSection = () => {
       <section id="features" className="features-section">
         <div className="features-container">
           <div className="features-header">
-            <div className="section-badge">
-              <Filter size={16} />
-              <span>Platform Features</span>
-            </div>
+            
             <h2 data-text="Comprehensive Energy Intelligence Suite">
               Comprehensive Energy Intelligence Suite
             </h2>
@@ -875,7 +993,7 @@ return (
     />
 
     <Hero />
-
+     <AboutSection />
     <FeaturesSection />
     <CapabilitiesSection />
     <Footer />
