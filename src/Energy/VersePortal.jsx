@@ -82,19 +82,26 @@ const featureCategories = allFeatures.reduce((acc, feature) => {
   return acc;
 }, {});
 const AboutSection = () => {
-  const people = [
-    {
-      id: 1,
-      name: "Ishaa",
-      role: "Collaborator Slot",
-      location: "Your Team",
-      bio: "Add the next teammate’s details here – update the JSON in AboutSection to show their profile.",
-       github: "https://github.com/techcodings",
-      linkedin: "https://www.linkedin.com/in/gouthamlm",
-      website: "https://techcodings.github.io/gouthamlm",
-      tags: ["Full-Stack", "ML / AI", "EnergyTech", "Product Builder"],
-      initials: "+"
-    },
+const people = [
+  {
+    id: 1,
+    name: "Isha Das",
+    role: "Project Lead & Founder",
+    location: "Lumina Tech · ID Tech Solutions",
+    bio: "Project Lead and Founder driving the vision and execution of Energy Verse, Textile Verse, FMCG Verse, and Agro Verse. Focused on building scalable, data-driven platforms that combine technology, sustainability, and industry-specific intelligence to solve real-world challenges.",
+    github: "https://github.com/",
+    linkedin: "https://www.linkedin.com/",
+    website: "#",
+    tags: [
+      "Project Leadership",
+      "EnergyTech",
+      "TextileTech",
+      "FMCG Solutions",
+      "AgroTech",
+      "Product Strategy"
+    ],
+    initials: "ID"
+  },
     {
   id: 2,
   name: "Dinesh",
