@@ -108,9 +108,9 @@ const people = [
   role: "Co-builder · Full-Stack & AI Engineer",
   location: "India",
   bio: "Architects feature modules, backend APIs, and performance optimisations for the EnergyVerse stack, bridging data, ML, and real-world energy workflows.",
-  github: "https://github.com/Twist-Turn",
-  linkedin: "https://www.linkedin.com/in/dinesh-kumar-5a1a0b257/",
-  website: "https://dinesh-s-portfolio.vercel.app/",
+  github:  "#",
+  linkedin: "#",
+  website:  "#",
   tags: ["Full-Stack", "ML / AI", "EnergyTech", "Product Builder"],
   initials: "D"
 }
@@ -121,9 +121,9 @@ const people = [
   role: "Co-builder · Full-Stack & AI Engineer",
   location: "India",
   bio: "Leads the core architecture, ML pipelines, and UI/UX for EnergyVerse , turning solar, EV, and grid data into intuitive, production-ready intelligence.",
-  github: "https://github.com/techcodings",
-  linkedin: "https://www.linkedin.com/in/goutham-lm/",
-  website: "https://techcodings.github.io/gouthamlm",
+  github:  "#",
+  linkedin:  "#",
+  website:  "#",
   tags: ["Full-Stack", "AI / ML", "EnergyTech", "Product Builder"],
   initials: "LMG"
 }
